@@ -1,0 +1,3 @@
+[[2265, 'Wireless Mouse', 2]]
+[[4877, 'Keyboard', 1]]
+[[3473, 'USB Cable', 3]]
