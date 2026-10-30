@@ -9,12 +9,24 @@
         "id": "P002",
         "name": "Mouse",
         "price": 25.5,
-        "stock": 40
+        "stock": 10
     },
     {
         "id": "P003",
         "name": "Keyboard",
         "price": 45.0,
         "stock": 25
+    },
+    {
+        "id": "P004",
+        "name": "Monitor",
+        "price": 200.0,
+        "stock": 35
+    },
+    {
+        "id": "P005",
+        "name": "Microphone",
+        "price": 300.0,
+        "stock": 39
     }
 ]
