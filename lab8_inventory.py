@@ -180,7 +180,7 @@ def update_stock(inventory):
         return
 
     print("\nProduct Found:")
-    product.display_all()
+    product.display_information()
 
     while True:
         try:
