@@ -1,0 +1,18 @@
+[
+    {
+        "id": "P001",
+        "name": "Keyboard",
+        "price": 50.0,
+        "stock": 22,
+        "type": "physical",
+        "weight": 1.0
+    },
+    {
+        "id": "P002",
+        "name": "Esim Card",
+        "price": 30.0,
+        "stock": 100,
+        "type": "digital",
+        "download_size": 1.0
+    }
+]

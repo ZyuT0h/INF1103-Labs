@@ -6,5 +6,13 @@
         "stock": 10,
         "type": "physical",
         "weight": 1.25
+    },
+    {
+        "id": "P002",
+        "name": "International Esim Card",
+        "price": 40.0,
+        "stock": 101,
+        "type": "digital",
+        "download_size": 1.0
     }
 ]
