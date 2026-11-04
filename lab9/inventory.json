@@ -28,5 +28,11 @@
         "name": "Microphone",
         "price": 300.0,
         "stock": 39
+    },
+    {
+        "id": "P006",
+        "name": "Earpiece",
+        "price": 20.0,
+        "stock": 130
     }
 ]
