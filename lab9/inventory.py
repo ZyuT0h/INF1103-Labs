@@ -1,11 +1,9 @@
 from product import Product
 """
-inventory.add_product(product1) # pass the product to inventory class to store in a list
-^ Hints to use list
 _____________________________________
 Inventory                            |   <-- Class Name
 _____________________________________|   
-- __products: list[Products]         |   <-- Attributes
+- __products: list[Product]          |   <-- Attributes
 _____________________________________|
 + add_product(product: Product)      |   <-- Methods
 + search_product(product_id: str)    |

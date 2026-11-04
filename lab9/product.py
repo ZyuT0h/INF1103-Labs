@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 """
 _____________________________________
+<<abstract>>                         |
 Product                              |   <-- Class Name
 _____________________________________|
 - __product_id: String               |    
@@ -15,8 +16,8 @@ _____________________________________|
 + get_fulfilment_info()              |
 _____________________________________|
 """
-
-class Product:
+# ABC makes Product an abstract base class
+class Product(ABC):
     def __init__(self, product_id, name, price, stock):
         self.__product_id = product_id
         self.__name = name
@@ -44,6 +45,7 @@ class Product:
         return {"id": self.__product_id, "name": self.__name,
                 "price": self.__price, "stock": self.__stock}
 
+    # @abstractmethod forces subclasses to implement the method.
     @abstractmethod
     def get_fulfilment_info(self):
-        return "Fulfilment method not specified."
+        pass

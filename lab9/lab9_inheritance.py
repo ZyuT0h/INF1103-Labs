@@ -1,6 +1,8 @@
 import json
 import os
 from product import Product
+from physicalproduct import PhysicalProduct
+from digitalproduct import DigitalProduct
 from inventory import Inventory
 
 FILENAME = "inventory.json"
@@ -21,19 +23,48 @@ def save_inventory(inventory):
 
 def load_inventory():
     inventory = Inventory()
+
     if os.path.exists(FILENAME):
         print(f"{FILENAME} found.")
+
         try:
             with open(FILENAME, "r") as file:
                 data = json.load(file)
-            # JSON gives back dictionaries, so turn each one into a Product object
+
             for item in data:
-                inventory.add_product(Product(item["id"], item["name"], item["price"], item["stock"]))
+
+                if item["type"] == "physical":
+                    product = PhysicalProduct(
+                        item["id"],
+                        item["name"],
+                        item["price"],
+                        item["stock"],
+                        item["weight"]
+                    )
+
+                elif item["type"] == "digital":
+                    product = DigitalProduct(
+                        item["id"],
+                        item["name"],
+                        item["price"],
+                        item["stock"],
+                        item["download_size"]
+                    )
+
+                else:
+                    print("Unknown product type. Skipping product.")
+                    continue
+
+                inventory.add_product(product)
+
             print("Inventory loaded successfully.")
+
         except json.JSONDecodeError:
             print(f"{FILENAME} is corrupted. Starting with an empty inventory.")
+
     else:
         print(f"{FILENAME} not found. Starting with an empty inventory.")
+
     return inventory
 
 def add_product(inventory):
@@ -72,7 +103,30 @@ def add_product(inventory):
         except ValueError:
             print("Please enter a whole number.")
 
-    product = Product(product_id, product_name, price, stock)
+    print("\nSelect Product Type")
+    print("1. Physical Product")
+    print("2. Digital Product")
+
+    while True:
+        product_type = input("Enter option: ").strip()
+
+        if product_type == "1":
+            weight = float(input("Enter weight (kg): "))
+            product = PhysicalProduct(
+                product_id, product_name, price, stock, weight
+            )
+            break
+
+        elif product_type == "2":
+            download_size = float(input("Enter download size (MB): "))
+            product = DigitalProduct(
+                product_id, product_name, price, stock, download_size
+            )
+            break
+
+        else:
+            print("Invalid option. Please select 1 or 2.")
+
     inventory.add_product(product)
     print("\nProduct added successfully!")
 
@@ -86,11 +140,11 @@ def update_stock(inventory):
         return
 
     print("\nProduct Found:")
-    product.display_all()
+    product.display_information()
 
     while True:
         try:
-            quantity = int(input("\nNew Stock Quantity: "))
+            quantity = int(input("\nEnter quantity to add: "))
             if quantity >= 0:
                 break
             print("Stock cannot be negative.")

@@ -6,7 +6,8 @@ DigitalProduct                       |   <-- Class Name
 _____________________________________|   
 - __download_size                    |   <-- Attributes
 _____________________________________|
-+ display_information()              |   <-- Methods
++ display_information(): void        |   <-- Methods
++ get_fulfilment_info(): str         |
 _____________________________________|
 """
 class DigitalProduct(Product):
@@ -17,6 +18,12 @@ class DigitalProduct(Product):
     def display_information(self):
         super().display_information()
         print(f"Download size: {self.__download_size} mb")
+
+    def to_dict(self):
+        data = super().to_dict()
+        data["type"] = "digital"
+        data["download_size"] = self.__download_size
+        return data
 
     def get_fulfilment_info(self):
         return "This product is delivered digitally via download."

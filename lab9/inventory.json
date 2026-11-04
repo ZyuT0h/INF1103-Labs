@@ -3,36 +3,8 @@
         "id": "P001",
         "name": "Laptop",
         "price": 1200.0,
-        "stock": 15
-    },
-    {
-        "id": "P002",
-        "name": "Mouse",
-        "price": 25.5,
-        "stock": 10
-    },
-    {
-        "id": "P003",
-        "name": "Keyboard",
-        "price": 45.0,
-        "stock": 25
-    },
-    {
-        "id": "P004",
-        "name": "Monitor",
-        "price": 200.0,
-        "stock": 35
-    },
-    {
-        "id": "P005",
-        "name": "Microphone",
-        "price": 300.0,
-        "stock": 39
-    },
-    {
-        "id": "P006",
-        "name": "Earpiece",
-        "price": 20.0,
-        "stock": 130
+        "stock": 10,
+        "type": "physical",
+        "weight": 1.25
     }
 ]
