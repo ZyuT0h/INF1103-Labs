@@ -13,7 +13,7 @@ _____________________________________|
 + update_stock(quantity : int): void |   <-- Methods
 + display_information(): void        |
 + to_dict(): dict                    |
-+ get_fulfilment_info()              |
++ get_fulfilment_info() (abstract)   |
 _____________________________________|
 """
 # ABC makes Product an abstract base class
