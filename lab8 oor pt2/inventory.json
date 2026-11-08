@@ -3,13 +3,13 @@
         "id": "P002",
         "name": "Logi Mouse",
         "price": 50.0,
-        "stock": 12,
+        "stock": 20,
         "supplier": {
-            "id": "329842",
+            "id": "432929",
             "name": "Logitech",
-            "contact_email": "logitech_support@gmail.com"
+            "contact_email": "logitech@gmail.com"
         },
         "type": "physical",
-        "weight": 0.3
+        "weight": 1.3
     }
 ]

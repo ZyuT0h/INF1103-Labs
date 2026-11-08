@@ -43,6 +43,8 @@ def load_inventory() -> Inventory:
                 data = json.load(file)
 
             for item in data:
+                s = item.get("supplier", {"id": "S000", "name": "Unknown Supplier", "contact_email": "-"})
+                supplier = get_or_create_supplier(s["id"], s["name"], s["contact_email"])
 
                 if item["type"] == "physical":
                     product = PhysicalProduct(
@@ -50,7 +52,7 @@ def load_inventory() -> Inventory:
                         item["name"],
                         item["price"],
                         item["stock"],
-                        item["supplier"],
+                        supplier,
                         item["weight"]
                     )
 
@@ -60,7 +62,7 @@ def load_inventory() -> Inventory:
                         item["name"],
                         item["price"],
                         item["stock"],
-                        item["supplier"],
+                        supplier,
                         item["download_size"]
                     )
 
@@ -79,6 +81,17 @@ def load_inventory() -> Inventory:
         print(f"{FILENAME} not found. Starting with an empty inventory.")
 
     return inventory
+
+def ask_existing_product(inventory: Inventory) -> Product | None:
+    """Keep asking until a valid Product ID is entered. Blank = cancel."""
+    while True:
+        product_id = input("Enter Product ID (or press Enter to cancel): ").strip().upper()
+        if product_id == "":
+            return None
+        product = inventory.find_product(product_id)
+        if product is not None:
+            return product
+        print("Product not found. Please try again.")
 
 def ask_supplier() -> Supplier:
     while True:
@@ -162,8 +175,7 @@ def add_product(inventory: Inventory) -> None:
 
 def update_stock(inventory: Inventory) -> None:
     print("\nUpdate Stock")
-    product_id = input("Enter Product ID: ").strip()
-    product = inventory.find_product(product_id)
+    product = ask_existing_product(inventory)
 
     if product is None:
         print("\nProduct not found.")
@@ -187,8 +199,7 @@ def update_stock(inventory: Inventory) -> None:
 def search_product(inventory: Inventory) -> None:
     print("\nSearch Product")
 
-    product_id = input("Enter Product ID: ").strip().upper()
-    product = inventory.find_product(product_id)
+    product = ask_existing_product(inventory)
 
     if product is None:
         print("\nProduct not found.")
@@ -199,11 +210,11 @@ def search_product(inventory: Inventory) -> None:
 
 def remove_product(inventory: Inventory) -> None:
     print("\nRemove Product")
-    product_id = input("Enter Product ID: ").strip().upper()
-    if inventory.find_product(product_id) is None:
+    product = ask_existing_product(inventory)
+    if product is None:
         print("\nProduct not found.")
         return
-    inventory.remove_product(product_id)
+    inventory.remove_product(product.get_product_id())
     print("\nProduct removed from inventory.")
 
 def main():
