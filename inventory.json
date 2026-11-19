@@ -4,6 +4,11 @@
         "name": "Keyboard",
         "price": 50.0,
         "stock": 22,
+        "supplier": {
+            "id": "S000",
+            "name": "Unknown Supplier",
+            "contact_email": "-"
+        },
         "type": "physical",
         "weight": 1.0
     },
@@ -12,6 +17,11 @@
         "name": "Esim Card",
         "price": 30.0,
         "stock": 100,
+        "supplier": {
+            "id": "S000",
+            "name": "Unknown Supplier",
+            "contact_email": "-"
+        },
         "type": "digital",
         "download_size": 1.0
     }

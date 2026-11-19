@@ -169,11 +169,11 @@ def update_stock(inventory: Inventory) -> None:
         except ValueError:
             print("Please enter a whole number.")
 
-        try:
-            product.update_stock(quantity)
-            print("\nStock updated successfully!")
-        except ValueError as error:
-            print(f"\n{error}")
+    try:
+        product.update_stock(quantity)
+        print("\nStock updated successfully!")
+    except ValueError as error:
+        print(f"\n{error}")
 
 def search_product(inventory: Inventory) -> None:
     print("\nSearch Product")
