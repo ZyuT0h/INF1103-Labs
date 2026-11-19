@@ -24,6 +24,10 @@ _____________________________________|
 # ABC makes Product an abstract base class
 class Product(ABC):
     def __init__(self, product_id: str, name: str, price: float, stock: int, supplier: Supplier):
+        if price <= 0:
+            raise ValueError("Price must be greater than zero.")
+        if stock < 0:
+            raise ValueError("Stock cannot be negative.")
         self.__product_id = product_id
         self.__name = name
         self.__price = price
@@ -44,8 +48,7 @@ class Product(ABC):
 
     def update_stock(self, quantity: int) -> None:
         if self.__stock + quantity < 0:
-            print("Not enough stock!")
-            return
+            raise ValueError("Not enough stock.")
         self.__stock += quantity
 
     def display_information(self) -> None:

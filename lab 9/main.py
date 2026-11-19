@@ -1,8 +1,8 @@
 import json
 import os
 from product import Product
-from physicalproduct import PhysicalProduct
-from digitalproduct import DigitalProduct
+from productfactory import ProductFactory
+from helpers import get_positive_float
 from inventory import Inventory
 from supplier import Supplier
 
@@ -46,28 +46,18 @@ def load_inventory() -> Inventory:
                 s = item.get("supplier", {"id": "S000", "name": "Unknown Supplier", "contact_email": "-"})
                 supplier = get_or_create_supplier(s["id"], s["name"], s["contact_email"])
 
-                if item["type"] == "physical":
-                    product = PhysicalProduct(
+                try:
+                    product = ProductFactory.create(
+                        item["type"],
                         item["id"],
                         item["name"],
                         item["price"],
                         item["stock"],
                         supplier,
-                        item["weight"]
+                        item.get("weight", item.get("download_size", 0.0))
                     )
-
-                elif item["type"] == "digital":
-                    product = DigitalProduct(
-                        item["id"],
-                        item["name"],
-                        item["price"],
-                        item["stock"],
-                        supplier,
-                        item["download_size"]
-                    )
-
-                else:
-                    print("Unknown product type. Skipping product.")
+                except ValueError as error:
+                    print(f"Skipping product: {error}")
                     continue
 
                 inventory.add_product(product)
@@ -126,14 +116,7 @@ def add_product(inventory: Inventory) -> None:
             break
         print("Enter a Product Name")
 
-    while True:
-        try:
-            price = float(input("Price: "))
-            if price >= 0:
-                break
-            print("Price cannot be negative.")
-        except ValueError:
-            print("Please enter a valid number.")
+    price = get_positive_float("Price: ")
 
     while True:
         try:
@@ -151,24 +134,19 @@ def add_product(inventory: Inventory) -> None:
     print("2. Digital Product")
 
     while True:
-        product_type = input("Enter option: ").strip()
-
-        if product_type == "1":
-            weight = float(input("Enter weight (kg): "))
-            product = PhysicalProduct(
-                product_id, product_name, price, stock, supplier, weight
-            )
+        choice = input("Enter option: ").strip()
+        if choice == "1":
+            product_type, label = "physical", "Enter weight (kg): "
             break
-
-        elif product_type == "2":
-            download_size = float(input("Enter download size (MB): "))
-            product = DigitalProduct(
-                product_id, product_name, price, stock, supplier, download_size
-            )
+        elif choice == "2":
+            product_type, label = "digital", "Enter download size (MB): "
             break
+        print("Invalid option. Please select 1 or 2.")
 
-        else:
-            print("Invalid option. Please select 1 or 2.")
+    extra = get_positive_float(label)
+    product = ProductFactory.create(
+        product_type, product_id, product_name, price, stock, supplier, extra
+    )
 
     inventory.add_product(product)
     print("\nProduct added successfully!")
@@ -193,8 +171,11 @@ def update_stock(inventory: Inventory) -> None:
         except ValueError:
             print("Please enter a whole number.")
 
-    product.update_stock(quantity)
-    print("\nStock updated successfully!")
+    try:
+        product.update_stock(quantity)
+        print("\nStock updated successfully!")
+    except ValueError as error:
+        print(f"\n{error}")
 
 def search_product(inventory: Inventory) -> None:
     print("\nSearch Product")

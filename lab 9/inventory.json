@@ -1,15 +1,15 @@
 [
     {
-        "id": "P002",
-        "name": "Logi Mouse",
-        "price": 50.0,
-        "stock": 20,
+        "id": "P001",
+        "name": "Desk Lamp",
+        "price": 25.0,
+        "stock": 10,
         "supplier": {
-            "id": "432929",
-            "name": "Logitech",
-            "contact_email": "logitech@gmail.com"
+            "id": "209348",
+            "name": "Ikea",
+            "contact_email": "ikea@support.com"
         },
         "type": "physical",
-        "weight": 1.3
+        "weight": 2.0
     }
 ]
