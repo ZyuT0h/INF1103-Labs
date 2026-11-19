@@ -164,18 +164,16 @@ def update_stock(inventory: Inventory) -> None:
 
     while True:
         try:
-            quantity = int(input("\nEnter quantity to add: "))
-            if quantity >= 0:
-                break
-            print("Stock cannot be negative.")
+            quantity = int(input("\nEnter quantity to change (e.g. 5 or -2): "))
+            break
         except ValueError:
             print("Please enter a whole number.")
 
-    try:
-        product.update_stock(quantity)
-        print("\nStock updated successfully!")
-    except ValueError as error:
-        print(f"\n{error}")
+        try:
+            product.update_stock(quantity)
+            print("\nStock updated successfully!")
+        except ValueError as error:
+            print(f"\n{error}")
 
 def search_product(inventory: Inventory) -> None:
     print("\nSearch Product")
